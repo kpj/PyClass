@@ -33,6 +33,7 @@ class LocalBinaryPatterns(BaseFeatureExtractor):
     """
     def extract(self, img_path):
         image = Image.open(img_path)
+        assert image.size > (500, 500), 'Image must have a size of at least 500x500'
 
         box = (100, 100, 500, 500)
         sub_img = image.crop(box)
