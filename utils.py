@@ -4,8 +4,6 @@ Functions of varying functionality
 
 import os
 
-from PIL import Image
-
 
 def get_feature_extractors():
     """ Return list of feature extractors given in `features.py`
@@ -17,9 +15,8 @@ def get_feature_vector(img_path):
     """ Generate feature vector for given image
     """
     vec = []
-    img = Image.open(img_path)
     for Cls in get_feature_extractors():
-        cur = Cls().extract(img)
+        cur = Cls().extract(img_path)
         vec.extend(cur)
 
     return vec
