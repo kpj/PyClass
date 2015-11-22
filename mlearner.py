@@ -47,6 +47,10 @@ def train_model(cache_file='cache_dir/model.pkl'):
         print('Loading cached model "%s"' % cache_file)
         clf = joblib.load(cache_file)
     else:
+        dname = os.path.dirname(cache_file)
+        if not os.path.isdir(dname):
+            os.mkdir(dname)
+
         clf = create_forest()
         joblib.dump(clf, cache_file)
 
