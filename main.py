@@ -30,6 +30,8 @@ def compute_score(root_dir, clf):
     print('Accuracy:', clf.score(fvecs, true_classes))
 
 def main():
+    """ Execute action depending on external input
+    """
     if len(sys.argv) != 2:
         print('Usage: %s <image|directory>' % sys.argv[0])
         sys.exit(1)

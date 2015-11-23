@@ -22,7 +22,7 @@ def create_forest():
 
     # extract features
     feature_vectors = []
-    for icls, img_path in images:
+    for _, img_path in images:
         cur = get_feature_vector(img_path)
         feature_vectors.append(cur)
 

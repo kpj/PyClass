@@ -12,6 +12,8 @@ class BaseFeatureExtractor(object):
     """ Basis for all feature extractors
     """
     def extract(self, data):
+        """ Return list of feature values
+        """
         raise NotImplementedError('No way of extracting features specified')
 
 class BasicImageStats(BaseFeatureExtractor):
