@@ -2,6 +2,8 @@
 Define all features to be extracted from the data
 """
 
+import numpy as np
+
 from PIL import Image
 from PIL.ImageStat import Stat
 
@@ -35,10 +37,21 @@ class LocalBinaryPatterns(BaseFeatureExtractor):
     """
     def extract(self, img_path):
         image = Image.open(img_path)
-        assert image.size > (500, 500), 'Image must have a size of at least 500x500'
 
-        box = (100, 100, 500, 500)
+        # assemble region of interest
+        fac = 30/80
+        w, h = image.size
+        box = (
+            int(fac * w), int(fac * h),
+            int((1-fac) * w), int((1-fac) * h)
+        )
         sub_img = image.crop(box)
 
+        # analyze local binary patterns
         lbp = local_binary_pattern(sub_img.getdata(), 8 * 3, 3, 'uniform')
-        return lbp.flat
+        hist = np.bincount(
+            np.array(lbp.flat).astype(np.int64),
+            minlength=50
+        )
+
+        return hist
