@@ -15,6 +15,7 @@ from utils import read_images, get_feature_vector
 def create_forest():
     """ Create new random decision forest
     """
+    print('Creating random forest')
     images = read_images()
 
     # assign classes
@@ -30,12 +31,13 @@ def create_forest():
 
     # good estimator number for classification tasks
     sqrt_feat_num = int(np.sqrt(len(feature_vectors[0])))
-
-    print('Creating random forest:')
     print(' ', sqrt_feat_num, 'estimator%s' % ('' if sqrt_feat_num == 1 else 's'))
 
     # create forest
-    clf = RandomForestClassifier(n_estimators=sqrt_feat_num, n_jobs=-1)
+    clf = RandomForestClassifier(
+        n_estimators=sqrt_feat_num, n_jobs=-1,
+        max_depth=None, min_samples_split=1
+    )
     clf = clf.fit(feature_vectors, image_classes)
 
     return clf
